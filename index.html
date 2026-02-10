@@ -856,8 +856,8 @@
         let currentQuestionIndex = 0;
         let userAnswers = [];
         let confirmedAnswers = []; // 新增：记录每道题是否已确认答案
-        let rewards = { stars: 0, moons: 0, suns: 0 };
-        let streak = { count: 0, lastDate: null };
+        let rewards = { stars: 0, moons: 1, suns: 0 };
+        let streak = { count: 1, lastDate: null };
         let today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD格式
         let todayAlreadyChecked = false; // 记录今天是否已经打卡过（用于判断是否增加星星）
         
@@ -1847,8 +1847,8 @@ const defaultQuestions = [
             if (confirm('确定要重置所有数据吗？这将删除所有题目、奖励和打卡记录！')) {
                 // 重置数据
                 questions = [];
-                rewards = { stars: 0, moons: 0, suns: 0 };
-                streak = { count: 0, lastDate: null };
+                rewards = { stars: 0, moons: 1, suns: 0 };
+                streak = { count: 1, lastDate: null };
                 todayAlreadyChecked = false;
                 
                 // 保存并重新加载
