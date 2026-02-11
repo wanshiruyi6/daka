@@ -394,13 +394,6 @@
             margin-bottom: 5px;
         }
         
-        /* 已移除正确答案的显示
-        .correct-answer {
-            color: #99ff99;
-            margin-bottom: 15px;
-        }
-        */
-        
         /* 订正区域 */
         .correction-area {
             margin-top: 15px;
@@ -445,13 +438,6 @@
             background: rgba(255, 0, 0, 0.2);
             color: #ff9999;
             border: 1px solid #ff6666;
-        }
-        
-        /* 显示答案按钮 */
-        .show-answer-btn {
-            margin-left: 10px;
-            font-size: 0.9rem;
-            padding: 5px 10px;
         }
         
         /* 题目管理区域 */
@@ -515,6 +501,72 @@
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 批量添加题目区域 */
+        .batch-add-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .batch-add-title {
+            color: #66ccff;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        .batch-add-textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            border: 2px solid #66ccff;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-bottom: 15px;
+            font-family: monospace;
+            line-height: 1.5;
+        }
+        
+        .batch-add-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .batch-add-example {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #aaccff;
+            border-left: 4px solid #66ccff;
+        }
+        
+        .batch-add-example-title {
+            color: #ffcc00;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .batch-add-example code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #99ff99;
+        }
+        
+        /* 批量添加按钮组 */
+        .batch-add-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
         }
         
         .form-group {
@@ -618,6 +670,10 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .batch-add-buttons {
+                flex-direction: column;
+            }
         }
         
         /* 动画效果 */
@@ -670,6 +726,17 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        
+        /* 成功提示 */
+        .success-message {
+            background: rgba(51, 204, 102, 0.2);
+            color: #99ff99;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid #33cc66;
+            display: none;
         }
     </style>
 </head>
@@ -759,14 +826,54 @@
             </div>
         </div>
         
+        <!-- 批量添加题目区域 -->
+        <div class="batch-add-container">
+            <h3 class="batch-add-title">📝 批量添加题目</h3>
+            <div class="form-group">
+                <label class="form-label">粘贴题目内容（格式：题目/答案/提示/空行）</label>
+                <textarea class="batch-add-textarea" id="batch-add-textarea" placeholder="请输入题目内容，格式如下：
+
+小明有5个苹果，吃了2个，还剩几个？
+3
+用总数减去吃掉的数量
+
+10除以2等于多少？
+5
+把10分成2等份
+
+一周有几天？
+7
+
+注意：第一行题目，第二行答案，第三行提示（可选），然后空一行开始下一题"></textarea>
+            </div>
+            
+            <div class="batch-add-example">
+                <div class="batch-add-example-title">📌 格式示例：</div>
+                <div>第一行：<code>题目内容</code></div>
+                <div>第二行：<code>正确答案</code></div>
+                <div>第三行：<code>解题提示（可选，如果没有则留空）</code></div>
+                <div>第四行：<code>空行（作为题目之间的分隔）</code></div>
+                <div>然后重复上述格式添加下一题</div>
+            </div>
+            
+            <div class="batch-add-buttons">
+                <button class="btn btn-success" id="batch-add-btn">📥 批量添加题目</button>
+                <button class="btn btn-secondary" id="clear-batch-btn">🗑️ 清空输入框</button>
+                <button class="btn btn-primary" id="load-example-btn">📋 加载示例</button>
+            </div>
+            
+            <div class="success-message" id="batch-success-message"></div>
+        </div>
+        
         <div class="admin-buttons">
-            <button class="btn btn-primary" id="add-question-btn">➕ 添加题目</button>
+            <button class="btn btn-primary" id="add-question-btn">➕ 添加单个题目</button>
             <button class="btn btn-danger" id="reset-data-btn">🗑️ 重置所有数据</button>
             <button class="btn btn-secondary" id="close-admin-btn">✖️ 关闭管理</button>
         </div>
-        <div class="question-list" id="question-list"></div>
+        
+        <!-- 单个题目添加表单 -->
         <div id="add-question-form" class="edit-form">
-            <h3 style="color:#66ccff; margin-bottom:15px;">添加新题目</h3>
+            <h3 style="color:#66ccff; margin-bottom:15px;">添加单个题目</h3>
             <div class="form-group">
                 <label class="form-label">题目内容</label>
                 <textarea class="form-textarea" id="new-question-text" rows="3" placeholder="请输入题目..."></textarea>
@@ -784,6 +891,8 @@
                 <button class="btn btn-secondary" id="cancel-add-btn">取消</button>
             </div>
         </div>
+        
+        <div class="question-list" id="question-list"></div>
     </div>
     
     <!-- 题目区域 -->
@@ -838,7 +947,7 @@
         <source src="click.mp3" type="audio/mpeg">
     </audio>
     <audio id="success-sound" preload="auto">
-        <source src="success1.mp3" type="audio/mpeg">
+        <source src="success.mp3" type="audio/mpeg">
     </audio>
     <audio id="error-sound" preload="auto">
         <source src="error.mp3" type="audio/mpeg">
@@ -856,8 +965,8 @@
         let currentQuestionIndex = 0;
         let userAnswers = [];
         let confirmedAnswers = []; // 新增：记录每道题是否已确认答案
-        let rewards = { stars: 0, moons: 1, suns: 0 };
-        let streak = { count: 1, lastDate: null };
+        let rewards = { stars: 5, moons: 1, suns: 0 };
+        let streak = { count: 2, lastDate: null };
         let today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD格式
         let todayAlreadyChecked = false; // 记录今天是否已经打卡过（用于判断是否增加星星）
         
@@ -876,6 +985,13 @@
         const cancelAddBtn = document.getElementById('cancel-add-btn');
         const resetDataBtn = document.getElementById('reset-data-btn');
         const questionList = document.getElementById('question-list');
+        
+        // 批量添加相关元素
+        const batchAddTextarea = document.getElementById('batch-add-textarea');
+        const batchAddBtn = document.getElementById('batch-add-btn');
+        const clearBatchBtn = document.getElementById('clear-batch-btn');
+        const loadExampleBtn = document.getElementById('load-example-btn');
+        const batchSuccessMessage = document.getElementById('batch-success-message');
         
         // 奖励修改相关元素
         const editStarsCount = document.getElementById('edit-stars-count');
@@ -1088,59 +1204,33 @@
         
         // 添加默认题目（如果没有题目）
         function addDefaultQuestions() {
-// 在代码中添加的默认题目（已包含在代码中）
-const defaultQuestions = [
-    { 
-        text: "有一堆棋子，旦旦在桌上按“四个黑五个白”的规律排列起来，一共排了72枚棋子，第20枚棋子的颜色是黑还是白？", 
-        answer: "黑",
-        hint: "先分组"
-    },
-    { 
-        text: "填单位：课桌的高度是80（ ）？", 
-        answer: "厘米",
-        hint: ""
-    },
-    { 
-        text: "二（4）班舞蹈队有20人，合唱队人数比舞蹈队人数的一半多3，合唱队有几人？", 
-        answer: "13",
-        hint: "先算一半"
-    },
-    { 
-        text: "计算：8×8-42÷7=？", 
-        answer: "58",
-        hint: ""
-    },
-    { 
-        text: "□×7>23方框里可以填的最小的数是多少？", 
-        answer: "4",
-        hint: "九九乘法口诀"
-    },
-    { 
-        text: "袋子中装有8个红苹果，4个黄苹果。至少从袋中拿出多少个苹果才能保证拿出颜色不同的苹果？", 
-        answer: "9",
-        hint: "最不利原则"
-    },
-    { 
-        text: "宸宸有12个积木，夏至的积木是宸宸的3倍。夏至有多少个积木？", 
-        answer: "36",
-        hint: "烤串计算方法"
-    },
-    { 
-        text: "爸爸给夏至20块钱去买1瓶酱油和3包盐，钱够吗？（酱油：14元/瓶，盐：2元/包）", 
-        answer: "够",
-        hint: "先分别计算酱油和盐要多少钱"
-    },
-    { 
-        text: "计算：78-59=？", 
-        answer: "19",
-        hint: ""
-    },
-    { 
-        text: "100-20-20-20+20=？", 
-        answer: "60",
-        hint: ""
-    }
-];
+            const defaultQuestions = [
+                { 
+                    text: "小明有5个苹果，吃了2个，还剩几个？", 
+                    answer: "3",
+                    hint: "用总数减去吃掉的数量"
+                },
+                { 
+                    text: "10除以2等于多少？", 
+                    answer: "5",
+                    hint: "把10分成2等份"
+                },
+                { 
+                    text: "一周有几天？", 
+                    answer: "7",
+                    hint: ""
+                },
+                { 
+                    text: "8加7等于多少？", 
+                    answer: "15",
+                    hint: "8 + 7 = ?"
+                },
+                { 
+                    text: "一个正方形有几条边？", 
+                    answer: "4",
+                    hint: "正方形有四条相等的边"
+                }
+            ];
             
             questions = defaultQuestions;
             saveData();
@@ -1158,6 +1248,11 @@ const defaultQuestions = [
             cancelAddBtn.addEventListener('click', hideAddForm);
             saveQuestionBtn.addEventListener('click', saveNewQuestion);
             resetDataBtn.addEventListener('click', resetAllData);
+            
+            // 批量添加按钮事件
+            batchAddBtn.addEventListener('click', batchAddQuestions);
+            clearBatchBtn.addEventListener('click', clearBatchTextarea);
+            loadExampleBtn.addEventListener('click', loadExampleQuestions);
             
             // 奖励修改按钮事件
             decreaseStarsBtn.addEventListener('click', () => modifyReward('stars', -1));
@@ -1206,6 +1301,129 @@ const defaultQuestions = [
         function playSound(sound) {
             sound.currentTime = 0;
             sound.play().catch(e => console.log("音效播放失败:", e));
+        }
+        
+        // 批量添加题目
+        function batchAddQuestions() {
+            const text = batchAddTextarea.value.trim();
+            if (!text) {
+                alert('请输入题目内容！');
+                return;
+            }
+            
+            // 按空行分割成题目块
+            const questionBlocks = text.split(/\n\s*\n/);
+            const newQuestions = [];
+            let successCount = 0;
+            let errorCount = 0;
+            
+            // 解析每个题目块
+            questionBlocks.forEach((block, index) => {
+                const lines = block.split('\n').filter(line => line.trim() !== '');
+                
+                // 每个题目块至少需要2行（题目和答案）
+                if (lines.length >= 2) {
+                    const questionText = lines[0].trim();
+                    const answer = lines[1].trim();
+                    const hint = lines[2] ? lines[2].trim() : '';
+                    
+                    if (questionText && answer) {
+                        newQuestions.push({
+                            text: questionText,
+                            answer: answer,
+                            hint: hint
+                        });
+                        successCount++;
+                    } else {
+                        errorCount++;
+                        console.warn(`第${index + 1}个题目格式错误：`, lines);
+                    }
+                } else if (lines.length > 0) {
+                    errorCount++;
+                    console.warn(`第${index + 1}个题目格式不完整：`, lines);
+                }
+            });
+            
+            if (newQuestions.length === 0) {
+                alert('没有解析到有效的题目！请检查格式是否正确。\n\n格式要求：\n第一行：题目\n第二行：答案\n第三行：提示（可选）\n空一行后开始下一题');
+                return;
+            }
+            
+            // 添加到现有题目列表
+            questions.push(...newQuestions);
+            saveData();
+            loadQuestionList();
+            
+            // 显示成功消息
+            let message = `成功添加 ${successCount} 道题目！`;
+            if (errorCount > 0) {
+                message += ` 有 ${errorCount} 道题目格式错误被跳过。`;
+            }
+            
+            batchSuccessMessage.textContent = message;
+            batchSuccessMessage.style.display = 'block';
+            
+            // 清空输入框
+            batchAddTextarea.value = '';
+            
+            // 3秒后隐藏成功消息
+            setTimeout(() => {
+                batchSuccessMessage.style.display = 'none';
+            }, 3000);
+            
+            // 播放成功音效
+            playSound(successSound);
+        }
+        
+        // 清空批量输入框
+        function clearBatchTextarea() {
+            batchAddTextarea.value = '';
+            batchAddTextarea.focus();
+        }
+        
+        // 加载示例题目
+        function loadExampleQuestions() {
+            const exampleText = `小明有5个苹果，吃了2个，还剩几个？
+3
+用总数减去吃掉的数量
+
+10除以2等于多少？
+5
+把10分成2等份
+
+一周有几天？
+7
+
+一个长方形有几条边？
+4
+长方形有四条边
+
+8乘以3等于多少？
+24
+8 × 3 = ?
+
+15减去6等于多少？
+9
+15 - 6 = ?
+
+一个三角形有几个角？
+3
+三角形有三个角
+
+20的一半是多少？
+10
+一半就是除以2
+
+9加7等于多少？
+16
+9 + 7 = ?
+
+12除以3等于多少？
+4
+想一想3乘以多少等于12`;
+            
+            batchAddTextarea.value = exampleText;
+            batchAddTextarea.focus();
         }
         
         // 开始打卡
@@ -1847,8 +2065,8 @@ const defaultQuestions = [
             if (confirm('确定要重置所有数据吗？这将删除所有题目、奖励和打卡记录！')) {
                 // 重置数据
                 questions = [];
-                rewards = { stars: 0, moons: 1, suns: 0 };
-                streak = { count: 1, lastDate: null };
+                rewards = { stars: 5, moons: 1, suns: 0 };
+                streak = { count: 2, lastDate: null };
                 todayAlreadyChecked = false;
                 
                 // 保存并重新加载
