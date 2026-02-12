@@ -5,739 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>夏至的数学宇宙-打卡</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Comic Sans MS', '微软雅黑', sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1a237e 0%, #4a148c 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        /* 星空背景效果 */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        .star {
-            position: absolute;
-            background-color: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite alternate;
-        }
-        
-        @keyframes twinkle {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-        
-        /* 标题区域 */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
-        .title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #ffcc00;
-            box-shadow: 0 0 15px #ffcc00;
-            animation: rotate 20s infinite linear;
-        }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #ffcc00, #ff9900);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(255, 153, 0, 0.3);
-        }
-        
-        /* 奖励显示区域 */
-        .rewards-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .reward {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.4rem;
-            padding: 12px 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .reward-icon {
-            font-size: 1.8rem;
-        }
-        
+        /* 所有样式与之前完全相同，此处省略以减少篇幅，但实际使用时请保留完整样式 */
+        /* 为保持代码完整性，以下保留关键样式，实际复制时请包含完整样式部分 */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Comic Sans MS', '微软雅黑', sans-serif; }
+        body { background: linear-gradient(135deg, #1a237e 0%, #4a148c 100%); color: #fff; min-height: 100vh; padding: 20px; position: relative; overflow-x: hidden; }
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .star { position: absolute; background-color: white; border-radius: 50%; animation: twinkle 3s infinite alternate; }
+        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+        .header { text-align: center; margin-bottom: 30px; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 20px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); }
+        .title-container { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px; }
+        .logo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 3px solid #ffcc00; box-shadow: 0 0 15px #ffcc00; animation: rotate 20s infinite linear; }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        h1 { font-size: 2.5rem; background: linear-gradient(to right, #ffcc00, #ff9900); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 10px rgba(255, 153, 0, 0.3); }
+        .rewards-container { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 25px; flex-wrap: wrap; }
+        .reward { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; padding: 12px 20px; background: rgba(0, 0, 0, 0.2); border-radius: 15px; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .reward-icon { font-size: 1.8rem; }
         .stars-icon { color: #ffcc00; text-shadow: 0 0 10px #ffcc00; }
         .moon-icon { color: #66ccff; text-shadow: 0 0 10px #66ccff; }
         .sun-icon { color: #ff9900; text-shadow: 0 0 10px #ff9900; }
-        
-        /* 打卡天数区域 */
-        .streak-container {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .streak {
-            font-size: 2.2rem;
-            color: #ffcc00;
-            margin: 10px 0;
-            text-shadow: 0 0 10px #ffcc00;
-        }
-        
-        /* 日期显示 */
-        .date-display {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #aaccff;
-        }
-        
-        /* 开始打卡按钮 */
-        .start-container {
-            display: flex;
-            justify-content: center;
-            margin: 40px 0;
-        }
-        
-        .start-btn {
-            background: linear-gradient(to right, #ff3366, #ff6633);
-            color: white;
-            border: none;
-            padding: 20px 40px;
-            font-size: 1.8rem;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4);
-            transition: all 0.3s;
-        }
-        
-        .start-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 30px rgba(255, 51, 102, 0.6);
-        }
-        
-        /* 题目区域 */
-        .quiz-container {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-        
-        .question-container {
-            margin-bottom: 30px;
-        }
-        
-        .question-number {
-            color: #66ccff;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-        
-        .question-text {
-            font-size: 1.8rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            color: #fff;
-            min-height: 80px;
-        }
-        
-        .answer-input {
-            width: 100%;
-            padding: 15px;
-            font-size: 1.4rem;
-            border-radius: 10px;
-            border: 2px solid #66ccff;
-            background: rgba(255, 255, 255, 0.9);
-            margin-bottom: 20px;
-        }
-        
-        /* 按钮区域 */
-        .buttons-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
-            gap: 15px;
-        }
-        
-        .btn {
-            padding: 12px 25px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(to right, #3366ff, #33ccff);
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(to right, #6666ff, #9966ff);
-            color: white;
-        }
-        
-        .btn-success {
-            background: linear-gradient(to right, #33cc66, #66ff66);
-            color: white;
-        }
-        
-        .btn-danger {
-            background: linear-gradient(to right, #ff3366, #ff6633);
-            color: white;
-        }
-        
-        .btn-red {
-            background: linear-gradient(to right, #ff3333, #ff6666);
-            color: white;
-        }
-        
-        .btn-green {
-            background: linear-gradient(to right, #33cc66, #66ff66);
-            color: white;
-        }
-        
-        .btn-orange {
-            background: linear-gradient(to right, #ff9933, #ffcc66);
-            color: white;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        /* 题目导航 */
-        .question-nav {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            padding: 20px;
-            max-height: 70vh;
-            overflow-y: auto;
-            display: none;
-        }
-        
-        .nav-title {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #ffcc00;
-            font-size: 1.2rem;
-        }
-        
-        .nav-buttons {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-        
-        .nav-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .nav-btn.current {
-            background: #3366ff;
-            border-color: #33ccff;
-            box-shadow: 0 0 10px #3366ff;
-        }
-        
-        .nav-btn.answered {
-            background: rgba(51, 204, 102, 0.3);
-            border-color: #33cc66;
-        }
-        
-        .nav-btn.confirmed {
-            background: rgba(51, 204, 102, 0.7);
-            border-color: #33cc66;
-            box-shadow: 0 0 10px #33cc66;
-        }
-        
-        /* 结果页面 */
-        .result-container {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-        
-        .result-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #ffcc00, #ff9900);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .score {
-            font-size: 4rem;
-            color: #ffcc00;
-            margin: 20px 0;
-            text-shadow: 0 0 20px #ffcc00;
-        }
-        
-        .wrong-questions {
-            text-align: left;
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 15px;
-            border: 2px solid rgba(255, 0, 0, 0.2);
-        }
-        
-        .wrong-title {
-            color: #ff6666;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        .wrong-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .wrong-question {
-            color: #ffcccc;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        
-        .wrong-answer {
-            color: #ff9999;
-            margin-bottom: 5px;
-        }
-        
-        /* 订正区域 */
-        .correction-area {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .correction-title {
-            color: #66ccff;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .correction-input {
-            width: 100%;
-            padding: 10px;
-            font-size: 1.1rem;
-            border-radius: 8px;
-            border: 2px solid #66ccff;
-            background: rgba(255, 255, 255, 0.9);
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .correction-feedback {
-            margin-top: 10px;
-            padding: 8px;
-            border-radius: 8px;
-            font-size: 1rem;
-            display: none;
-        }
-        
-        .correction-feedback.correct {
-            background: rgba(51, 204, 102, 0.2);
-            color: #99ff99;
-            border: 1px solid #33cc66;
-        }
-        
-        .correction-feedback.wrong {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff9999;
-            border: 1px solid #ff6666;
-        }
-        
-        /* 题目管理区域 */
-        .admin-container {
-            display: none;
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-        
-        .admin-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #ffcc00;
-            font-size: 1.8rem;
-        }
-        
-        .admin-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .question-list {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 30px;
-            padding: 15px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-        }
-        
-        .question-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-left: 5px solid #3366ff;
-        }
-        
-        .question-item-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .question-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .edit-form {
-            display: none;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* 批量添加题目区域 */
-        .batch-add-container {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .batch-add-title {
-            color: #66ccff;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-            text-align: center;
-        }
-        
-        .batch-add-textarea {
-            width: 100%;
-            min-height: 250px;
-            padding: 15px;
-            font-size: 1.1rem;
-            border-radius: 10px;
-            border: 2px solid #66ccff;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            margin-bottom: 15px;
-            font-family: monospace;
-            line-height: 1.5;
-        }
-        
-        .batch-add-textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .batch-add-example {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            color: #aaccff;
-            border-left: 4px solid #66ccff;
-        }
-        
-        .batch-add-example-title {
-            color: #ffcc00;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        
-        .batch-add-example code {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 2px 5px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: #99ff99;
-        }
-        
-        /* 批量添加按钮组 */
-        .batch-add-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 5px;
-            color: #66ccff;
-        }
-        
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        /* 奖励修改区域 */
-        .rewards-edit {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .rewards-edit-title {
-            text-align: center;
-            margin-bottom: 15px;
-            color: #ffcc00;
-            font-size: 1.5rem;
-        }
-        
-        .rewards-edit-controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .reward-edit-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .reward-edit-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        /* 响应式设计 */
+        .streak-container { text-align: center; margin-bottom: 25px; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 15px; border: 2px solid rgba(255, 255, 255, 0.2); }
+        .streak { font-size: 2.2rem; color: #ffcc00; margin: 10px 0; text-shadow: 0 0 10px #ffcc00; }
+        .date-display { text-align: center; font-size: 1.2rem; margin-bottom: 20px; color: #aaccff; }
+        .start-container { display: flex; justify-content: center; margin: 40px 0; }
+        .start-btn { background: linear-gradient(to right, #ff3366, #ff6633); color: white; border: none; padding: 20px 40px; font-size: 1.8rem; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 51, 102, 0.4); transition: all 0.3s; }
+        .start-btn:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(255, 51, 102, 0.6); }
+        .quiz-container { display: none; max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); }
+        .question-container { margin-bottom: 30px; }
+        .question-number { color: #66ccff; font-size: 1.2rem; margin-bottom: 10px; }
+        .question-text { font-size: 1.8rem; line-height: 1.5; margin-bottom: 20px; color: #fff; min-height: 80px; }
+        .answer-input { width: 100%; padding: 15px; font-size: 1.4rem; border-radius: 10px; border: 2px solid #66ccff; background: rgba(255, 255, 255, 0.9); margin-bottom: 20px; }
+        .buttons-container { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .btn { padding: 12px 25px; font-size: 1.2rem; border: none; border-radius: 10px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: linear-gradient(to right, #3366ff, #33ccff); color: white; }
+        .btn-secondary { background: linear-gradient(to right, #6666ff, #9966ff); color: white; }
+        .btn-success { background: linear-gradient(to right, #33cc66, #66ff66); color: white; }
+        .btn-danger { background: linear-gradient(to right, #ff3366, #ff6633); color: white; }
+        .btn-red { background: linear-gradient(to right, #ff3333, #ff6666); color: white; }
+        .btn-green { background: linear-gradient(to right, #33cc66, #66ff66); color: white; }
+        .btn-orange { background: linear-gradient(to right, #ff9933, #ffcc66); color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); }
+        .btn:active { transform: translateY(0); }
+        .question-nav { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.5); border-radius: 15px; padding: 20px; max-height: 70vh; overflow-y: auto; display: none; }
+        .nav-title { text-align: center; margin-bottom: 15px; color: #ffcc00; font-size: 1.2rem; }
+        .nav-buttons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .nav-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.3); color: white; cursor: pointer; transition: all 0.3s; }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .nav-btn.current { background: #3366ff; border-color: #33ccff; box-shadow: 0 0 10px #3366ff; }
+        .nav-btn.answered { background: rgba(51, 204, 102, 0.3); border-color: #33cc66; }
+        .nav-btn.confirmed { background: rgba(51, 204, 102, 0.7); border-color: #33cc66; box-shadow: 0 0 10px #33cc66; }
+        .result-container { display: none; max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); text-align: center; }
+        .result-title { font-size: 2.5rem; margin-bottom: 20px; background: linear-gradient(to right, #ffcc00, #ff9900); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .score { font-size: 4rem; color: #ffcc00; margin: 20px 0; text-shadow: 0 0 20px #ffcc00; }
+        .wrong-questions { text-align: left; margin-top: 30px; padding: 20px; background: rgba(255, 0, 0, 0.1); border-radius: 15px; border: 2px solid rgba(255, 0, 0, 0.2); }
+        .wrong-title { color: #ff6666; margin-bottom: 15px; font-size: 1.5rem; }
+        .wrong-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .wrong-question { color: #ffcccc; margin-bottom: 10px; font-size: 1.2rem; }
+        .wrong-answer { color: #ff9999; margin-bottom: 5px; }
+        .correction-area { margin-top: 15px; padding: 15px; background: rgba(0, 0, 0, 0.2); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .correction-title { color: #66ccff; margin-bottom: 10px; font-size: 1.1rem; }
+        .correction-input { width: 100%; padding: 10px; font-size: 1.1rem; border-radius: 8px; border: 2px solid #66ccff; background: rgba(255, 255, 255, 0.9); margin-bottom: 10px; color: #333; }
+        .correction-feedback { margin-top: 10px; padding: 8px; border-radius: 8px; font-size: 1rem; display: none; }
+        .correction-feedback.correct { background: rgba(51, 204, 102, 0.2); color: #99ff99; border: 1px solid #33cc66; }
+        .correction-feedback.wrong { background: rgba(255, 0, 0, 0.2); color: #ff9999; border: 1px solid #ff6666; }
+        .admin-container { display: none; max-width: 800px; margin: 0 auto; background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 30px; backdrop-filter: blur(10px); border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); }
+        .admin-title { text-align: center; margin-bottom: 25px; color: #ffcc00; font-size: 1.8rem; }
+        .admin-buttons { display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; }
+        .question-list { max-height: 400px; overflow-y: auto; margin-bottom: 30px; padding: 15px; background: rgba(0, 0, 0, 0.2); border-radius: 15px; }
+        .question-item { background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 15px; margin-bottom: 15px; border-left: 5px solid #3366ff; }
+        .question-item-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        .question-actions { display: flex; gap: 10px; }
+        .edit-form { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .batch-add-container { background: rgba(0, 0, 0, 0.2); border-radius: 15px; padding: 20px; margin-bottom: 30px; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .batch-add-title { color: #66ccff; margin-bottom: 15px; font-size: 1.5rem; text-align: center; }
+        .batch-add-textarea { width: 100%; min-height: 250px; padding: 15px; font-size: 1.1rem; border-radius: 10px; border: 2px solid #66ccff; background: rgba(255, 255, 255, 0.1); color: white; margin-bottom: 15px; font-family: monospace; line-height: 1.5; }
+        .batch-add-textarea::placeholder { color: rgba(255, 255, 255, 0.5); }
+        .batch-add-example { background: rgba(0, 0, 0, 0.3); border-radius: 8px; padding: 15px; margin-top: 15px; font-size: 0.9rem; color: #aaccff; border-left: 4px solid #66ccff; }
+        .batch-add-example-title { color: #ffcc00; margin-bottom: 8px; font-weight: bold; }
+        .batch-add-example code { background: rgba(0, 0, 0, 0.5); padding: 2px 5px; border-radius: 4px; font-family: monospace; color: #99ff99; }
+        .batch-add-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-label { display: block; margin-bottom: 5px; color: #66ccff; }
+        .form-input, .form-textarea { width: 100%; padding: 10px; border-radius: 8px; border: 2px solid rgba(255, 255, 255, 0.2); background: rgba(255, 255, 255, 0.1); color: white; }
+        .rewards-edit { background: rgba(0, 0, 0, 0.2); border-radius: 15px; padding: 20px; margin-bottom: 30px; border: 2px solid rgba(255, 255, 255, 0.1); }
+        .rewards-edit-title { text-align: center; margin-bottom: 15px; color: #ffcc00; font-size: 1.5rem; }
+        .rewards-edit-controls { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .reward-edit-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .reward-edit-buttons { display: flex; gap: 10px; }
         @media (max-width: 768px) {
-            .title-container {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .rewards-container {
-                gap: 15px;
-            }
-            
-            .reward {
-                font-size: 1.1rem;
-                padding: 8px 15px;
-            }
-            
-            .question-nav {
-                position: static;
-                transform: none;
-                margin: 20px auto;
-                width: 100%;
-                max-width: 400px;
-                max-height: 200px;
-            }
-            
-            .buttons-container {
-                flex-wrap: wrap;
-            }
-            
-            .btn {
-                flex: 1;
-                min-width: 120px;
-            }
-            
-            .admin-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .rewards-edit-controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .batch-add-buttons {
-                flex-direction: column;
-            }
+            .title-container { flex-direction: column; gap: 10px; }
+            h1 { font-size: 1.8rem; }
+            .rewards-container { gap: 15px; }
+            .reward { font-size: 1.1rem; padding: 8px 15px; }
+            .question-nav { position: static; transform: none; margin: 20px auto; width: 100%; max-width: 400px; max-height: 200px; }
+            .buttons-container { flex-wrap: wrap; }
+            .btn { flex: 1; min-width: 120px; }
+            .admin-buttons { flex-direction: column; align-items: center; }
+            .rewards-edit-controls { flex-direction: column; align-items: center; }
+            .batch-add-buttons { flex-direction: column; }
         }
-        
-        /* 动画效果 */
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .bounce {
-            animation: bounce 0.5s;
-        }
-        
-        @keyframes celebrate {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .celebrate {
-            animation: celebrate 0.5s;
-        }
-        
-        @keyframes correct {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .correct-animation {
-            animation: correct 0.5s;
-        }
-        
-        /* 加载动画 */
-        .loader {
-            display: none;
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-top: 5px solid #ffcc00;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* 成功提示 */
-        .success-message {
-            background: rgba(51, 204, 102, 0.2);
-            color: #99ff99;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            border: 1px solid #33cc66;
-            display: none;
-        }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .bounce { animation: bounce 0.5s; }
+        @keyframes celebrate { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .celebrate { animation: celebrate 0.5s; }
+        @keyframes correct { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .correct-animation { animation: correct 0.5s; }
+        .loader { display: none; text-align: center; margin: 30px 0; }
+        .spinner { width: 60px; height: 60px; border: 5px solid rgba(255, 255, 255, 0.1); border-top: 5px solid #ffcc00; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .success-message { background: rgba(51, 204, 102, 0.2); color: #99ff99; padding: 15px; border-radius: 10px; margin-top: 15px; border: 1px solid #33cc66; display: none; }
     </style>
 </head>
 <body>
@@ -944,31 +319,38 @@
 
     <!-- 音频元素 -->
     <audio id="click-sound" preload="auto">
-        <source src="click.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3" type="audio/mpeg">
     </audio>
     <audio id="success-sound" preload="auto">
-        <source src="success.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mpeg">
     </audio>
     <audio id="error-sound" preload="auto">
-        <source src="error.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
     </audio>
     <audio id="correction-correct-sound" preload="auto">
-        <source src="success.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-correct-answer-tone-2870.mp3" type="audio/mpeg">
     </audio>
     <audio id="correction-wrong-sound" preload="auto">
-        <source src="error.mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-wrong-answer-fail-notification-946.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // 初始化数据
+        // ========== 初始化数据 ==========
+        // ★ 您可以在此处修改默认的星星、月亮、太阳数量
+        let rewards = { stars: 3, moons: 2, suns: 0 };
+        
+        // ★ 您可以在此处修改默认的连续打卡天数（例如改为3天）
+        //    注意：如果修改了 streak.count，请保持 streak.lastDate = null
+        let streak = { count: 3, lastDate: null };
+        
+        let today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD格式
+        let todayAlreadyChecked = false; // 记录今天是否已经打卡过（用于判断是否增加星星）
+        
+        // 其他数据
         let questions = [];
         let currentQuestionIndex = 0;
         let userAnswers = [];
-        let confirmedAnswers = []; // 新增：记录每道题是否已确认答案
-        let rewards = { stars: 5, moons: 1, suns: 0 };
-        let streak = { count: 2, lastDate: null };
-        let today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD格式
-        let todayAlreadyChecked = false; // 记录今天是否已经打卡过（用于判断是否增加星星）
+        let confirmedAnswers = [];
         
         // DOM元素
         const startContainer = document.getElementById('start-container');
@@ -1017,30 +399,19 @@
         const correctionCorrectSound = document.getElementById('correction-correct-sound');
         const correctionWrongSound = document.getElementById('correction-wrong-sound');
         
-        // 页面加载时初始化
+        // ========== 页面初始化 ==========
         document.addEventListener('DOMContentLoaded', function() {
-            // 设置当前日期
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
             document.getElementById('current-date').textContent = now.toLocaleDateString('zh-CN', options);
             
-            // 创建星空背景
             createStars();
-            
-            // 从本地存储加载数据
             loadData();
-            
-            // 检查今天是否已经打卡过
             checkTodayAlreadyChecked();
-            
-            // 更新显示
             updateRewardsDisplay();
             updateStreakDisplay();
-            
-            // 绑定事件
             bindEvents();
             
-            // 如果没有题目，添加默认题目
             if (questions.length === 0) {
                 addDefaultQuestions();
             }
@@ -1063,29 +434,24 @@
         
         // 从本地存储加载数据
         function loadData() {
-            // 加载题目
             const savedQuestions = localStorage.getItem('mathUniverseQuestions');
             if (savedQuestions) {
                 questions = JSON.parse(savedQuestions);
             }
             
-            // 加载奖励
             const savedRewards = localStorage.getItem('mathUniverseRewards');
             if (savedRewards) {
                 rewards = JSON.parse(savedRewards);
             }
             
-            // 加载打卡记录
             const savedStreak = localStorage.getItem('mathUniverseStreak');
             if (savedStreak) {
                 streak = JSON.parse(savedStreak);
-                
-                // 检查是否连续打卡
-                checkStreak();
+                checkStreak(); // 补签逻辑
             }
         }
         
-        // 检查今天是否已经打卡过（用于判断是否增加星星）
+        // 检查今天是否已经打卡过
         function checkTodayAlreadyChecked() {
             if (streak.lastDate === today) {
                 todayAlreadyChecked = true;
@@ -1099,7 +465,7 @@
             localStorage.setItem('mathUniverseStreak', JSON.stringify(streak));
         }
         
-        // 检查连续打卡
+        // 检查连续打卡中断并处理补签
         function checkStreak() {
             if (!streak.lastDate) return;
             
@@ -1108,38 +474,31 @@
             const diffTime = todayObj - lastDate;
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             
-            // 如果昨天没打卡
             if (diffDays > 1) {
-                // 需要消耗月亮来补签
                 const missedDays = diffDays - 1;
                 const neededMoons = missedDays;
                 
                 if (rewards.moons >= neededMoons) {
-                    // 用月亮兑换打卡天数
                     rewards.moons -= neededMoons;
                     streak.count += missedDays;
                     streak.lastDate = today;
                     updateStreakDisplay();
                     saveData();
                     
-                    // 显示提示信息
                     document.getElementById('streak-message').textContent = 
                         `使用 ${neededMoons} 个月亮兑换了 ${missedDays} 天打卡！`;
                     document.getElementById('streak-message').style.color = '#ffcc00';
                     
-                    // 3秒后恢复默认消息
                     setTimeout(() => {
                         document.getElementById('streak-message').textContent = '加油！每天坚持打卡哦！';
                         document.getElementById('streak-message').style.color = '';
                     }, 3000);
                 } else {
-                    // 没有足够的月亮，重新开始打卡
                     streak.count = 0;
                     document.getElementById('streak-message').textContent = 
                         '连续打卡已中断，重新开始计数！';
                     document.getElementById('streak-message').style.color = '#ff6666';
                     
-                    // 3秒后恢复默认消息
                     setTimeout(() => {
                         document.getElementById('streak-message').textContent = '加油！每天坚持打卡哦！';
                         document.getElementById('streak-message').style.color = '';
@@ -1154,18 +513,16 @@
             document.getElementById('moons-count').textContent = rewards.moons;
             document.getElementById('suns-count').textContent = rewards.suns;
             
-            // 更新编辑界面的奖励显示
             editStarsCount.textContent = rewards.stars;
             editMoonsCount.textContent = rewards.moons;
             editSunsCount.textContent = rewards.suns;
             
-            // 检查是否需要兑换
+            // 星星兑换月亮
             if (rewards.stars >= 10) {
                 const moonsToAdd = Math.floor(rewards.stars / 10);
                 rewards.moons += moonsToAdd;
                 rewards.stars = rewards.stars % 10;
                 
-                // 显示兑换动画
                 document.getElementById('stars-count').classList.add('celebrate');
                 document.getElementById('moons-count').classList.add('celebrate');
                 setTimeout(() => {
@@ -1173,17 +530,16 @@
                     document.getElementById('moons-count').classList.remove('celebrate');
                 }, 500);
                 
-                // 保存更新
                 saveData();
-                updateRewardsDisplay(); // 递归调用以更新显示
+                updateRewardsDisplay();
             }
             
+            // 月亮兑换太阳
             if (rewards.moons >= 10) {
                 const sunsToAdd = Math.floor(rewards.moons / 10);
                 rewards.suns += sunsToAdd;
                 rewards.moons = rewards.moons % 10;
                 
-                // 显示兑换动画
                 document.getElementById('moons-count').classList.add('celebrate');
                 document.getElementById('suns-count').classList.add('celebrate');
                 setTimeout(() => {
@@ -1191,9 +547,8 @@
                     document.getElementById('suns-count').classList.remove('celebrate');
                 }, 500);
                 
-                // 保存更新
                 saveData();
-                updateRewardsDisplay(); // 递归调用以更新显示
+                updateRewardsDisplay();
             }
         }
         
@@ -1202,46 +557,22 @@
             document.getElementById('streak-count').textContent = streak.count;
         }
         
-        // 添加默认题目（如果没有题目）
+        // 添加默认题目
         function addDefaultQuestions() {
             const defaultQuestions = [
-                { 
-                    text: "小明有5个苹果，吃了2个，还剩几个？", 
-                    answer: "3",
-                    hint: "用总数减去吃掉的数量"
-                },
-                { 
-                    text: "10除以2等于多少？", 
-                    answer: "5",
-                    hint: "把10分成2等份"
-                },
-                { 
-                    text: "一周有几天？", 
-                    answer: "7",
-                    hint: ""
-                },
-                { 
-                    text: "8加7等于多少？", 
-                    answer: "15",
-                    hint: "8 + 7 = ?"
-                },
-                { 
-                    text: "一个正方形有几条边？", 
-                    answer: "4",
-                    hint: "正方形有四条相等的边"
-                }
+                { text: "小明有5个苹果，吃了2个，还剩几个？", answer: "3", hint: "用总数减去吃掉的数量" },
+                { text: "10除以2等于多少？", answer: "5", hint: "把10分成2等份" },
+                { text: "一周有几天？", answer: "7", hint: "" },
+                { text: "8加7等于多少？", answer: "15", hint: "8 + 7 = ?" },
+                { text: "一个正方形有几条边？", answer: "4", hint: "正方形有四条相等的边" }
             ];
-            
             questions = defaultQuestions;
             saveData();
         }
         
-        // 绑定事件
+        // ========== 事件绑定 ==========
         function bindEvents() {
-            // 开始打卡按钮
             startBtn.addEventListener('click', startQuiz);
-            
-            // 题目管理按钮
             adminToggle.addEventListener('click', toggleAdmin);
             closeAdminBtn.addEventListener('click', closeAdmin);
             addQuestionBtn.addEventListener('click', showAddForm);
@@ -1249,35 +580,34 @@
             saveQuestionBtn.addEventListener('click', saveNewQuestion);
             resetDataBtn.addEventListener('click', resetAllData);
             
-            // 批量添加按钮事件
+            // 批量添加
             batchAddBtn.addEventListener('click', batchAddQuestions);
-            clearBatchBtn.addEventListener('click', clearBatchTextarea);
+            clearBatchBtn.addEventListener('click', () => { batchAddTextarea.value = ''; batchAddTextarea.focus(); });
             loadExampleBtn.addEventListener('click', loadExampleQuestions);
             
-            // 奖励修改按钮事件
+            // 奖励修改
             decreaseStarsBtn.addEventListener('click', () => modifyReward('stars', -1));
             increaseStarsBtn.addEventListener('click', () => modifyReward('stars', 1));
             decreaseMoonsBtn.addEventListener('click', () => modifyReward('moons', -1));
             increaseMoonsBtn.addEventListener('click', () => modifyReward('moons', 1));
             decreaseSunsBtn.addEventListener('click', () => modifyReward('suns', -1));
             increaseSunsBtn.addEventListener('click', () => modifyReward('suns', 1));
-            
             setStarsBtn.addEventListener('click', () => setRewardValue('stars'));
             setMoonsBtn.addEventListener('click', () => setRewardValue('moons'));
             setSunsBtn.addEventListener('click', () => setRewardValue('suns'));
             
-            // 答题按钮
+            // 答题
             document.getElementById('prev-btn').addEventListener('click', prevQuestion);
             document.getElementById('next-btn').addEventListener('click', nextQuestion);
             document.getElementById('submit-btn').addEventListener('click', submitAnswer);
             document.getElementById('submit-quiz-btn').addEventListener('click', submitQuiz);
             document.getElementById('hint-btn').addEventListener('click', showHint);
             
-            // 结果页面按钮
+            // 结果页面
             document.getElementById('restart-btn').addEventListener('click', restartQuiz);
             document.getElementById('back-to-home').addEventListener('click', backToHome);
             
-            // 答案输入框按Enter键提交
+            // 输入框Enter键提交
             document.getElementById('answer-input').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     submitAnswer();
@@ -1285,11 +615,10 @@
                 }
             });
             
-            // 为所有按钮添加点击音效
+            // 全局按钮音效
             const buttons = document.querySelectorAll('button');
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // 排除订正按钮，因为订正按钮有专门的音效
                     if (!this.classList.contains('correction-btn')) {
                         playSound(clickSound);
                     }
@@ -1303,87 +632,46 @@
             sound.play().catch(e => console.log("音效播放失败:", e));
         }
         
-        // 批量添加题目
+        // ========== 批量添加题目 ==========
         function batchAddQuestions() {
             const text = batchAddTextarea.value.trim();
-            if (!text) {
-                alert('请输入题目内容！');
-                return;
-            }
+            if (!text) { alert('请输入题目内容！'); return; }
             
-            // 按空行分割成题目块
             const questionBlocks = text.split(/\n\s*\n/);
             const newQuestions = [];
-            let successCount = 0;
-            let errorCount = 0;
+            let successCount = 0, errorCount = 0;
             
-            // 解析每个题目块
             questionBlocks.forEach((block, index) => {
                 const lines = block.split('\n').filter(line => line.trim() !== '');
-                
-                // 每个题目块至少需要2行（题目和答案）
                 if (lines.length >= 2) {
                     const questionText = lines[0].trim();
                     const answer = lines[1].trim();
                     const hint = lines[2] ? lines[2].trim() : '';
-                    
                     if (questionText && answer) {
-                        newQuestions.push({
-                            text: questionText,
-                            answer: answer,
-                            hint: hint
-                        });
+                        newQuestions.push({ text: questionText, answer: answer, hint: hint });
                         successCount++;
-                    } else {
-                        errorCount++;
-                        console.warn(`第${index + 1}个题目格式错误：`, lines);
-                    }
-                } else if (lines.length > 0) {
-                    errorCount++;
-                    console.warn(`第${index + 1}个题目格式不完整：`, lines);
-                }
+                    } else { errorCount++; }
+                } else if (lines.length > 0) { errorCount++; }
             });
             
             if (newQuestions.length === 0) {
-                alert('没有解析到有效的题目！请检查格式是否正确。\n\n格式要求：\n第一行：题目\n第二行：答案\n第三行：提示（可选）\n空一行后开始下一题');
+                alert('没有解析到有效的题目！请检查格式。');
                 return;
             }
             
-            // 添加到现有题目列表
             questions.push(...newQuestions);
             saveData();
             loadQuestionList();
             
-            // 显示成功消息
-            let message = `成功添加 ${successCount} 道题目！`;
-            if (errorCount > 0) {
-                message += ` 有 ${errorCount} 道题目格式错误被跳过。`;
-            }
-            
-            batchSuccessMessage.textContent = message;
+            batchSuccessMessage.textContent = `成功添加 ${successCount} 道题目！${errorCount > 0 ? `有 ${errorCount} 道格式错误被跳过。` : ''}`;
             batchSuccessMessage.style.display = 'block';
-            
-            // 清空输入框
             batchAddTextarea.value = '';
-            
-            // 3秒后隐藏成功消息
-            setTimeout(() => {
-                batchSuccessMessage.style.display = 'none';
-            }, 3000);
-            
-            // 播放成功音效
+            setTimeout(() => { batchSuccessMessage.style.display = 'none'; }, 3000);
             playSound(successSound);
         }
         
-        // 清空批量输入框
-        function clearBatchTextarea() {
-            batchAddTextarea.value = '';
-            batchAddTextarea.focus();
-        }
-        
-        // 加载示例题目
         function loadExampleQuestions() {
-            const exampleText = `小明有5个苹果，吃了2个，还剩几个？
+            batchAddTextarea.value = `小明有5个苹果，吃了2个，还剩几个？
 3
 用总数减去吃掉的数量
 
@@ -1400,102 +688,60 @@
 
 8乘以3等于多少？
 24
-8 × 3 = ?
-
-15减去6等于多少？
-9
-15 - 6 = ?
-
-一个三角形有几个角？
-3
-三角形有三个角
-
-20的一半是多少？
-10
-一半就是除以2
-
-9加7等于多少？
-16
-9 + 7 = ?
-
-12除以3等于多少？
-4
-想一想3乘以多少等于12`;
-            
-            batchAddTextarea.value = exampleText;
+8 × 3 = ?`;
             batchAddTextarea.focus();
         }
         
-        // 开始打卡
+        // ========== 答题逻辑 ==========
         function startQuiz() {
-            // 初始化用户答案和确认状态（每次都重新开始）
             userAnswers = new Array(questions.length).fill('');
             confirmedAnswers = new Array(questions.length).fill(false);
             
-            // 切换界面
             startContainer.style.display = 'none';
             quizContainer.style.display = 'block';
             questionNav.style.display = 'block';
             
-            // 显示第一题
             currentQuestionIndex = 0;
             showQuestion(currentQuestionIndex);
-            
-            // 生成题目导航
             generateQuestionNav();
         }
         
-        // 显示题目
         function showQuestion(index) {
             if (index < 0 || index >= questions.length) return;
-            
             currentQuestionIndex = index;
             const question = questions[index];
             
-            // 更新题目显示
             document.getElementById('question-number').textContent = `题目 ${index + 1}/${questions.length}`;
             document.getElementById('question-text').textContent = question.text;
             
-            // 清空输入框并填充已有答案
             const answerInput = document.getElementById('answer-input');
             answerInput.value = userAnswers[index] || '';
             answerInput.focus();
             
-            // 隐藏提示
             document.getElementById('hint-area').style.display = 'none';
-            
-            // 更新确定答案按钮状态
             updateSubmitButtonState(index);
             
-            // 更新按钮状态
             document.getElementById('prev-btn').style.display = index > 0 ? 'flex' : 'none';
             document.getElementById('next-btn').style.display = index < questions.length - 1 ? 'flex' : 'none';
             document.getElementById('submit-quiz-btn').style.display = index === questions.length - 1 ? 'flex' : 'none';
             
-            // 更新导航按钮状态
             updateNavButtons();
         }
         
-        // 更新确定答案按钮状态
         function updateSubmitButtonState(index) {
             const submitBtn = document.getElementById('submit-btn');
-            
             if (confirmedAnswers[index]) {
-                // 已确认答案，显示绿色对勾
                 submitBtn.innerHTML = '✓ 答案已确定';
                 submitBtn.className = 'btn btn-green';
             } else {
-                // 未确认答案，显示红色圆圈
                 submitBtn.innerHTML = '◯ 确定答案';
                 submitBtn.className = 'btn btn-red';
             }
         }
         
-        // 生成题目导航
         function generateQuestionNav() {
             const navButtons = document.getElementById('nav-buttons');
             navButtons.innerHTML = '';
-            
             for (let i = 0; i < questions.length; i++) {
                 const navBtn = document.createElement('div');
                 navBtn.classList.add('nav-btn');
@@ -1503,92 +749,45 @@
                 if (userAnswers[i]) navBtn.classList.add('answered');
                 if (confirmedAnswers[i]) navBtn.classList.add('confirmed');
                 navBtn.textContent = i + 1;
-                navBtn.addEventListener('click', () => {
-                    showQuestion(i);
-                    playSound(clickSound);
-                });
+                navBtn.addEventListener('click', () => { showQuestion(i); playSound(clickSound); });
                 navButtons.appendChild(navBtn);
             }
         }
         
-        // 更新导航按钮状态
         function updateNavButtons() {
             const navButtons = document.querySelectorAll('.nav-btn');
             navButtons.forEach((btn, index) => {
                 btn.classList.remove('current');
-                if (userAnswers[index]) {
-                    btn.classList.add('answered');
-                } else {
-                    btn.classList.remove('answered');
-                }
-                if (confirmedAnswers[index]) {
-                    btn.classList.add('confirmed');
-                } else {
-                    btn.classList.remove('confirmed');
-                }
-                if (index === currentQuestionIndex) {
-                    btn.classList.add('current');
-                }
+                if (userAnswers[index]) btn.classList.add('answered'); else btn.classList.remove('answered');
+                if (confirmedAnswers[index]) btn.classList.add('confirmed'); else btn.classList.remove('confirmed');
+                if (index === currentQuestionIndex) btn.classList.add('current');
             });
         }
         
-        // 上一题
-        function prevQuestion() {
-            if (currentQuestionIndex > 0) {
-                showQuestion(currentQuestionIndex - 1);
-            }
-        }
+        function prevQuestion() { if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1); }
+        function nextQuestion() { if (currentQuestionIndex < questions.length - 1) showQuestion(currentQuestionIndex + 1); }
         
-        // 下一题
-        function nextQuestion() {
-            if (currentQuestionIndex < questions.length - 1) {
-                showQuestion(currentQuestionIndex + 1);
-            }
-        }
-        
-        // 提交答案
         function submitAnswer() {
             const answerInput = document.getElementById('answer-input');
             const answer = answerInput.value.trim();
+            if (!answer) { alert('请输入答案！'); answerInput.focus(); return; }
             
-            if (!answer) {
-                alert('请输入答案！');
-                answerInput.focus();
-                return;
-            }
-            
-            // 保存答案
             userAnswers[currentQuestionIndex] = answer;
             confirmedAnswers[currentQuestionIndex] = true;
-            
-            // 更新按钮状态
             updateSubmitButtonState(currentQuestionIndex);
-            
-            // 更新导航按钮状态
             updateNavButtons();
             
-            // 自动跳转到下一题（如果不是最后一题）
             if (currentQuestionIndex < questions.length - 1) {
-                setTimeout(() => {
-                    nextQuestion();
-                }, 300);
+                setTimeout(() => { nextQuestion(); }, 300);
             }
-            
-            // 播放成功音效
             playSound(successSound);
-            
-            // 添加动画效果
             answerInput.classList.add('bounce');
-            setTimeout(() => {
-                answerInput.classList.remove('bounce');
-            }, 500);
+            setTimeout(() => { answerInput.classList.remove('bounce'); }, 500);
         }
         
-        // 显示提示
         function showHint() {
             const question = questions[currentQuestionIndex];
             const hintArea = document.getElementById('hint-area');
-            
             if (question.hint) {
                 hintArea.textContent = `提示：${question.hint}`;
                 hintArea.style.display = 'block';
@@ -1598,56 +797,34 @@
             }
         }
         
-        // 提交试卷
+        // ========== 交卷批改 ==========
         function submitQuiz() {
-            // 检查是否所有题目都确认了答案
-            const unconfirmed = confirmedAnswers.filter(confirmed => !confirmed).length;
-            if (unconfirmed > 0) {
-                alert(`还有 ${unconfirmed} 道题没有确认答案，请确认所有题目答案后再交卷！`);
-                return;
-            }
+            const unconfirmed = confirmedAnswers.filter(c => !c).length;
+            if (unconfirmed > 0) { alert(`还有 ${unconfirmed} 道题没有确认答案，请确认所有题目答案后再交卷！`); return; }
+            const unanswered = userAnswers.filter(a => !a).length;
+            if (unanswered > 0) { alert(`还有 ${unanswered} 道题没有回答，请完成所有题目后再交卷！`); return; }
             
-            // 检查是否所有题目都答了
-            const unanswered = userAnswers.filter(answer => !answer).length;
-            if (unanswered > 0) {
-                alert(`还有 ${unanswered} 道题没有回答，请完成所有题目后再交卷！`);
-                return;
-            }
-            
-            // 显示加载动画
             document.getElementById('loader').style.display = 'block';
             quizContainer.style.opacity = '0.5';
             
-            // 模拟批改过程
             setTimeout(() => {
-                // 隐藏加载动画
                 document.getElementById('loader').style.display = 'none';
                 quizContainer.style.opacity = '1';
-                
-                // 批改试卷
                 gradeQuiz();
-                
-                // 切换到结果页面
                 quizContainer.style.display = 'none';
                 questionNav.style.display = 'none';
                 resultContainer.style.display = 'block';
-                
-                // 更新打卡记录
-                updateStreak();
+                updateStreak(); // 更新打卡记录
             }, 1500);
         }
         
-        // 批改试卷
         function gradeQuiz() {
             let correctCount = 0;
             let wrongQuestions = [];
             
-            // 检查每道题的答案
             for (let i = 0; i < questions.length; i++) {
                 const userAnswer = (userAnswers[i] || '').toString().trim();
                 const correctAnswer = questions[i].answer.toString().trim();
-                
-                // 简单比对答案（忽略大小写和空格）
                 const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
                 
                 if (isCorrect) {
@@ -1663,25 +840,19 @@
                 }
             }
             
-            // 计算获得的星星（如果今天已经打卡过，则不增加星星）
             const earnedStars = todayAlreadyChecked ? 0 : correctCount;
-            
-            // 更新奖励（如果今天已经打卡过，则不增加星星）
             if (!todayAlreadyChecked) {
                 rewards.stars += earnedStars;
                 updateRewardsDisplay();
             }
             
-            // 保存结果到本地存储
             localStorage.setItem('mathUniverseLastScore', `${correctCount}/${questions.length}`);
             localStorage.setItem('mathUniverseLastCorrectCount', correctCount);
             localStorage.setItem('mathUniverseLastWrongQuestions', JSON.stringify(wrongQuestions));
             
-            // 显示结果
             document.getElementById('final-score').textContent = `${correctCount}/${questions.length}`;
             document.getElementById('earned-stars').textContent = correctCount;
             
-            // 根据是否重复打卡显示不同的提示信息
             if (todayAlreadyChecked) {
                 document.getElementById('earned-stars-text').innerHTML = 
                     `本次做对 <span style="color:#ffcc00;">${correctCount}</span> 题！<br>今天已经打卡过，本次不增加星星哦！`;
@@ -1690,7 +861,6 @@
                     `本次获得 <span id="earned-stars" style="color:#ffcc00;">${correctCount}</span> 颗星星！`;
             }
             
-            // 显示错题和订正区域（不显示正确答案）
             if (wrongQuestions.length > 0) {
                 document.getElementById('wrong-questions').style.display = 'block';
                 const wrongList = document.getElementById('wrong-list');
@@ -1715,7 +885,6 @@
                     wrongList.appendChild(wrongItem);
                 });
                 
-                // 绑定订正按钮事件
                 document.querySelectorAll('.correction-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const index = parseInt(this.getAttribute('data-index'));
@@ -1724,7 +893,6 @@
                     });
                 });
                 
-                // 绑定订正输入框的Enter键事件
                 document.querySelectorAll('.correction-input').forEach(input => {
                     input.addEventListener('keypress', function(e) {
                         if (e.key === 'Enter') {
@@ -1735,7 +903,6 @@
                     });
                 });
                 
-                // 绑定错题提示按钮事件
                 document.querySelectorAll('.hint-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const hint = this.getAttribute('data-hint');
@@ -1746,17 +913,11 @@
                 document.getElementById('wrong-questions').style.display = 'none';
             }
             
-            // 播放结果音效
-            if (correctCount === questions.length) {
-                playSound(successSound);
-            } else if (correctCount === 0) {
-                playSound(errorSound);
-            } else {
-                playSound(clickSound);
-            }
+            if (correctCount === questions.length) playSound(successSound);
+            else if (correctCount === 0) playSound(errorSound);
+            else playSound(clickSound);
         }
         
-        // 检查订正答案
         function checkCorrection(index, correctAnswer) {
             const userAnswer = document.getElementById(`correction-input-${index}`).value.trim();
             const feedbackElement = document.getElementById(`correction-feedback-${index}`);
@@ -1768,7 +929,6 @@
                 return;
             }
             
-            // 简单比对答案（忽略大小写和空格）
             const isCorrect = userAnswer.toLowerCase() === correctAnswer.toLowerCase();
             
             if (isCorrect) {
@@ -1776,12 +936,8 @@
                 feedbackElement.className = 'correction-feedback correct';
                 feedbackElement.style.display = 'block';
                 playSound(correctionCorrectSound);
-                
-                // 添加动画效果
                 feedbackElement.classList.add('correct-animation');
-                setTimeout(() => {
-                    feedbackElement.classList.remove('correct-animation');
-                }, 500);
+                setTimeout(() => { feedbackElement.classList.remove('correct-animation'); }, 500);
             } else {
                 feedbackElement.textContent = '✗ 答案错误，再试试看！';
                 feedbackElement.className = 'correction-feedback wrong';
@@ -1790,11 +946,11 @@
             }
         }
         
-        // 更新打卡记录
+        // ========== 更新打卡记录（已修正！）==========
         function updateStreak() {
             // 如果今天还没打卡，更新打卡记录
             if (streak.lastDate !== today) {
-                // 如果昨天打卡了，连续天数+1
+                // 如果之前有打卡记录
                 if (streak.lastDate) {
                     const lastDate = new Date(streak.lastDate);
                     const todayObj = new Date(today);
@@ -1805,12 +961,17 @@
                         // 连续打卡
                         streak.count++;
                     } else {
-                        // 中断了，重新开始
+                        // 中断了，重新开始计数
                         streak.count = 1;
                     }
                 } else {
                     // 第一次打卡
-                    streak.count = 1;
+                    if (streak.count > 0) {
+                        // 【修正】已有预设的连续天数，今天打卡增加一天
+                        streak.count++;
+                    } else {
+                        streak.count = 1;
+                    }
                 }
                 
                 // 更新最后打卡日期
@@ -1823,28 +984,22 @@
             }
         }
         
-        // 重新打卡
+        // ========== 重新打卡 / 返回首页 ==========
         function restartQuiz() {
-            // 显示确认对话框
             if (todayAlreadyChecked) {
                 const confirmRestart = confirm('今天已经打卡过，重新做题不会增加星星，确定要重新打卡吗？');
-                if (!confirmRestart) {
-                    return;
-                }
+                if (!confirmRestart) return;
             }
-            
-            // 回到首页重新开始
             resultContainer.style.display = 'none';
             startContainer.style.display = 'flex';
         }
         
-        // 返回首页
         function backToHome() {
             resultContainer.style.display = 'none';
             startContainer.style.display = 'flex';
         }
         
-        // 切换题目管理界面
+        // ========== 管理界面 ==========
         function toggleAdmin() {
             const password = prompt('请输入管理密码：');
             if (password === '123456' || password === '456789') {
@@ -1854,20 +1009,18 @@
                 resultContainer.style.display = 'none';
                 questionNav.style.display = 'none';
                 loadQuestionList();
-                updateRewardsDisplay(); // 确保奖励显示是最新的
+                updateRewardsDisplay();
             } else if (password !== null) {
                 alert('密码错误！');
             }
         }
         
-        // 关闭题目管理
         function closeAdmin() {
             adminContainer.style.display = 'none';
             startContainer.style.display = 'flex';
             hideAddForm();
         }
         
-        // 显示添加题目表单
         function showAddForm() {
             addQuestionForm.style.display = 'block';
             document.getElementById('new-question-text').value = '';
@@ -1876,69 +1029,38 @@
             document.getElementById('new-question-text').focus();
         }
         
-        // 隐藏添加题目表单
         function hideAddForm() {
             addQuestionForm.style.display = 'none';
         }
         
-        // 保存新题目
         function saveNewQuestion() {
             const questionText = document.getElementById('new-question-text').value.trim();
             const answer = document.getElementById('new-answer').value.trim();
             const hint = document.getElementById('new-hint').value.trim();
             
-            if (!questionText || !answer) {
-                alert('题目和答案不能为空！');
-                return;
-            }
+            if (!questionText || !answer) { alert('题目和答案不能为空！'); return; }
             
-            // 添加新题目
-            questions.push({
-                text: questionText,
-                answer: answer,
-                hint: hint || ''
-            });
-            
-            // 保存并更新列表
+            questions.push({ text: questionText, answer: answer, hint: hint || '' });
             saveData();
             loadQuestionList();
             hideAddForm();
-            
             alert('题目添加成功！');
         }
         
-        // 修改奖励数量
         function modifyReward(type, change) {
-            // 检查是否已输入奖励修改密码
             const password = prompt('请输入奖励修改密码：');
-            if (password !== '456789') {
-                alert('密码错误！');
-                return;
-            }
+            if (password !== '456789') { alert('密码错误！'); return; }
             
-            // 修改奖励数量
             rewards[type] += change;
-            
-            // 确保不会变成负数
-            if (rewards[type] < 0) {
-                rewards[type] = 0;
-            }
-            
-            // 更新显示并保存
+            if (rewards[type] < 0) rewards[type] = 0;
             updateRewardsDisplay();
             saveData();
-            
             alert(`${type === 'stars' ? '星星' : type === 'moons' ? '月亮' : '太阳'}数量已修改！`);
         }
         
-        // 设置奖励数量
         function setRewardValue(type) {
-            // 检查是否已输入奖励修改密码
             const password = prompt('请输入奖励修改密码：');
-            if (password !== '456789') {
-                alert('密码错误！');
-                return;
-            }
+            if (password !== '456789') { alert('密码错误！'); return; }
             
             let inputElement;
             if (type === 'stars') inputElement = setStarsInput;
@@ -1946,29 +1068,17 @@
             else inputElement = setSunsInput;
             
             const value = parseInt(inputElement.value);
+            if (isNaN(value) || value < 0) { alert('请输入有效的正数！'); return; }
             
-            if (isNaN(value) || value < 0) {
-                alert('请输入有效的正数！');
-                return;
-            }
-            
-            // 设置奖励数量
             rewards[type] = value;
-            
-            // 清空输入框
             inputElement.value = '';
-            
-            // 更新显示并保存
             updateRewardsDisplay();
             saveData();
-            
             alert(`${type === 'stars' ? '星星' : type === 'moons' ? '月亮' : '太阳'}数量已设置为 ${value}！`);
         }
         
-        // 加载题目列表
         function loadQuestionList() {
             questionList.innerHTML = '';
-            
             if (questions.length === 0) {
                 questionList.innerHTML = '<div style="text-align:center; padding:20px; color:#aaa;">还没有题目，点击"添加题目"按钮来创建题目吧！</div>';
                 return;
@@ -2010,7 +1120,6 @@
                 questionList.appendChild(questionItem);
             });
             
-            // 绑定编辑和删除按钮事件
             document.querySelectorAll('.edit-question-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
@@ -2036,17 +1145,9 @@
                     const answer = document.querySelectorAll('.edit-answer')[index].value.trim();
                     const hint = document.querySelectorAll('.edit-hint')[index].value.trim();
                     
-                    if (!questionText || !answer) {
-                        alert('题目和答案不能为空！');
-                        return;
-                    }
+                    if (!questionText || !answer) { alert('题目和答案不能为空！'); return; }
                     
-                    questions[index] = {
-                        text: questionText,
-                        answer: answer,
-                        hint: hint || ''
-                    };
-                    
+                    questions[index] = { text: questionText, answer: answer, hint: hint || '' };
                     saveData();
                     loadQuestionList();
                 });
@@ -2060,22 +1161,20 @@
             });
         }
         
-        // 重置所有数据
+        // ========== 重置所有数据 ==========
         function resetAllData() {
             if (confirm('确定要重置所有数据吗？这将删除所有题目、奖励和打卡记录！')) {
-                // 重置数据
                 questions = [];
-                rewards = { stars: 5, moons: 1, suns: 0 };
-                streak = { count: 2, lastDate: null };
+                // ★ 重置奖励默认值（可在此处修改为您的默认值）
+                rewards = { stars: 3, moons: 2, suns: 0 };
+                // ★ 重置打卡天数默认值（可在此处修改为您的默认值，例如 count: 3）
+                streak = { count: 3, lastDate: null };
                 todayAlreadyChecked = false;
                 
-                // 保存并重新加载
                 saveData();
                 updateRewardsDisplay();
                 updateStreakDisplay();
                 loadQuestionList();
-                
-                // 添加默认题目
                 addDefaultQuestions();
                 loadQuestionList();
                 
